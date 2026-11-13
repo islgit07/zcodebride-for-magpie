@@ -1,63 +1,47 @@
-# magpie-zcode-bridge
+# zcodebride-for-magpie
+> 本插件由Zcode使用glm-5.3-flash免费鸡蛋编写
 
-magpie 的 OpenCode provider 插件：把本地 **zcode-bridge** 网关（OpenAI chat-completions 兼容接口，前置一个 GLM Coding Plan）挂成 magpie 的 provider `zcode-bridge`，让 magpie 服务的一切 agent（Codex、Claude Code、OpenCode……）都能选 `zcode-bridge/glm-5.3-flash` 这类模型，走桥接背后的计划配额。
+## 这是做什么的
 
-An OpenCode provider plugin for magpie: it serves a local **zcode-bridge** gateway (an OpenAI chat-completions compatible endpoint fronting a GLM coding plan) as the magpie provider `zcode-bridge`.
+ magpie 的Zcode通道会被限流，本插件把azrinaldi的zcode-bridge引入到magpie，方便路由。
 
-## 安装 / Install
+我只试过Codex 其他 agent还请自行配置优化 
 
-```sh
+## 前置安装
+
+- **[zcodebride-for-magpie](https://github.com/yetone/magpie)）**：API转接路由
+- **[zcode-bridge](https://github.com/azrinaldi/zcode-bridge)**：真正干活的桥，在你电脑上把 GLM 套餐变成一个本地接口。
+
+另外本机安装了ZCode，不太确定是否能不安装ZCode就直接使用，毕竟免费鸡蛋是需要安装才能领到的
+
+## 三步装好
+或者把网址发Agent，让Agent帮你安装
+
+1. 安装插件：
+
+```
 magpie plugin add github:islgit07/zcodebride-for-magpie
 ```
 
-或从 npm（如已发布）：
+2. 登录。
 
-```sh
-magpie plugin add npm:magpie-zcode-bridge
 ```
-
-装好后运行一次登录（桥接不校验密钥，任意值即可）：
-
-```sh
 magpie plugin login zcode-bridge
 ```
 
-## 前置条件 / Prerequisites
+3. 重启 magpie（或刷新模型列表）。看到 `zcode-bridge/glm-5.3-flash` 这样的模型，就说明成功了。
 
-本机需运行一个 OpenAI chat-completions 兼容的桥接网关，默认地址：
+## 常见问题
 
-- `http://127.0.0.1:20131/v1`（zcode-bridge 默认端口）
+**模型列表是空的？**
+多半是本地网关没在跑。确认 ZCode 处于打开状态，再刷新一次。
 
-任何暴露 `/v1/chat/completions` 与 `/v1/models` 的 OpenAI 兼容网关都可用。
+**想改网关地址？**
+本地端口在20131
 
-## 配置 / Options
-
-默认不需要任何配置。如需自定义端点或密钥：
-
-```sh
-magpie plugin options magpie-zcode-bridge '{"baseUrl": "http://127.0.0.1:20131/v1", "apiKey": "sk-..."}'
+```
+magpie plugin options magpie-zcode-bridge '{"baseUrl": "http://127.0.0.1:20131/v1"}'
 ```
 
-- `baseUrl`：桥接网关地址（默认 `http://127.0.0.1:20131/v1`）
-- `apiKey`：发给网关的 Bearer 密钥（默认 `sk-local`，桥接不校验时随意）
-
-## 模型列表 / Models
-
-插件会实时读取网关的 `/v1/models` 作为模型列表；网关不可用时回退到内置的 `glm-5.3-flash`、`glm-5.3`。
-
-## 工作原理 / How it works
-
-插件通过 magpie 的 provider 插件接口注入一个 `@ai-sdk/openai-compatible` provider；请求由 magpie 统一翻译（Codex 的 Responses 协议、Claude 的 Messages 协议等都会被转成 chat completions 发给桥接），因此桥接只需实现最简单的 chat 协议。
-
-## 隐私 / Privacy
-
-本插件不含任何密钥、账号或机器信息；所有配置都在你本机的 magpie 里。
-
-## 致谢 / Credits
-
-由 **ZCode**（编码 agent，运行 **GLM-5.3-Flash** 模型）编写。
-Written by **ZCode** (the coding agent), running the **GLM-5.3-Flash** model.
-
-## License
 
 MIT
