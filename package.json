@@ -1,0 +1,29 @@
+{
+  "name": "magpie-zcode-bridge",
+  "version": "0.1.0",
+  "description": "magpie provider plugin: serves a local zcode-bridge gateway (OpenAI-compatible chat completions fronting a GLM coding plan) as the provider zcode-bridge",
+  "type": "module",
+  "main": "./index.mjs",
+  "exports": { ".": "./index.mjs" },
+  "files": ["index.mjs", "README.md", "LICENSE"],
+  "keywords": [
+    "magpie",
+    "opencode",
+    "opencode-plugin",
+    "zcode",
+    "zai",
+    "glm",
+    "glm-5.3-flash",
+    "glm-coding-plan",
+    "bridge"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/islgit07/zcodebride-for-magpie.git"
+  },
+  "magpie": {
+    "maxConcurrency": 4,
+    "maxAccounts": 1
+  }
+}
