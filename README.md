@@ -7,9 +7,10 @@
 
 我只试过Codex 其他 agent还请自行配置优化 
 
-## 前置安装
+## 感谢与前置安装
+感谢大佬们开发的应用，免费鸡蛋很好吃。
 
-- **[zcodebride-for-magpie](https://github.com/yetone/magpie)）**：API转接路由
+- **[magpie](https://github.com/yetone/magpie)**：API转接路由
 - **[zcode-bridge](https://github.com/azrinaldi/zcode-bridge)**：真正干活的桥，在你电脑上把 GLM 套餐变成一个本地接口。
 
 另外本机安装了ZCode，不太确定是否能不安装ZCode就直接使用，毕竟免费鸡蛋是需要安装才能领到的
