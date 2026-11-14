@@ -37,6 +37,13 @@ magpie plugin login zcode-bridge
 **模型列表是空的？**
 多半是本地网关没在跑。确认 ZCode 处于打开状态，再刷新一次。
 
+**反复 401，重新 login 也没用？**
+设备流登录的令牌没有设备身份，Z.ai 风控会当异常活动拒绝。给桥接配上你 ZCode 桌面应用的设备 ID（在 `~/.zcode/v2/telemetry-state.json` 里找 UUID）再重启：
+
+```
+setx ZCODE_IDENTITY_DEVICE_MID "你的设备UUID"
+```
+
 **想改网关地址？**
 本地端口在20131
 
