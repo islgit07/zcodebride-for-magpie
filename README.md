@@ -44,7 +44,7 @@ magpie plugin login zcode-bridge
 magpie plugin options magpie-zcode-bridge '{"baseUrl": "http://127.0.0.1:20131/v1"}'
 ```
 
-## 附赠：keeper（让桥接自动开、自动关）
+## keeper（让桥接自动开、自动关）
 
 插件本身不会帮你启动 zcode-bridge。仓库里带了个小脚本 `keeper.py`（Windows 专用）：
 
