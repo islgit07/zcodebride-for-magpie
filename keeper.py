@@ -225,14 +225,12 @@ def main():
             else:
                 stop_bridge()
 
-            # 401 自愈: 桥接在跑但上游 JWT 过期, 重启换新 JWT
-            if (want_bridge and usage.last_401 > last_restart + RESTART_COOLDOWN
-                    and now - usage.last_401 < 120):
-                log("bridge: 401 seen, restarting for fresh JWT")
-                stop_bridge()
-                time.sleep(1)
-                start_bridge()
-                last_restart = now
+            # 注意: 不要因为 401 就重启桥接 —— 账号环模式下重启不能换票,
+            # 只会杀掉在途的流式响应、清空轮换状态, 把单次 401 放大成连环事故。
+            # 401 一般是并发槽瞬间被占(账号环自会冷却重试), 等 it 过去即可。
+            if usage.last_401 > last_restart:
+                log("bridge: 401 seen (no action; rotation will retry)")
+                last_restart = usage.last_401
 
             if PROXY_JS:
                 if proxy_wanted():
