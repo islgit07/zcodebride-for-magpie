@@ -1,4 +1,6 @@
-' keeper 开机自启示例: 把本文件改名为 keeper.vbs, 修好两个路径,
-' 放进启动文件夹 (Win+R 输入 shell:startup) 即可。
-' 0 = 隐藏窗口; 路径里的空格用双引号包住。
+' keeper autostart example -- keep this file ASCII-only!
+' (wscript reads .vbs without BOM as ANSI; non-ASCII comments can break it)
+' 1. Fix the two paths below (pythonw.exe and keeper.py).
+' 2. Rename to keeper.vbs and drop it in your Startup folder (Win+R -> shell:startup).
+' 3. Log out/in, or run it once to start the keeper right away.
 CreateObject("WScript.Shell").Run """C:\path\to\pythonw.exe"" ""C:\path\to\keeper.py""", 0, False
