@@ -44,5 +44,26 @@ magpie plugin login zcode-bridge
 magpie plugin options magpie-zcode-bridge '{"baseUrl": "http://127.0.0.1:20131/v1"}'
 ```
 
+## 附赠：keeper（让桥接自动开、自动关）
+
+插件本身不会帮你启动 zcode-bridge。仓库里带了个小脚本 `keeper.py`（Windows 专用）：
+
+- 哪个 agent 切到 `zcode-bridge/*` 模型，就自动拉起桥接；全切走且 10 分钟没请求，就自动关掉
+- 桥接的 JWT 过期导致 401 时，自动重启换新票
+
+用法（Python 3）：
+
+```
+python keeper.py
+```
+
+路径想改的话用环境变量：`ZCODE_BRIDGE_EXE`、`MAGPIE_CONFIG_DIR`、`CODEX_CONFIG`。
+
+开机自启：在启动文件夹（`Win+R` 输入 `shell:startup`）放一个 `.vbs`：
+
+```vbs
+CreateObject("WScript.Shell").Run """pythonw.exe的路径"" ""keeper.py的路径""", 0, False
+```
+
 
 MIT
